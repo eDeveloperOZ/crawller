@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block styles%}
+<style>
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+<form class="form-crawl" action="/start-crawl" method="post"
+style="border:10px solid black;padding:20px;">
+    <div class="text-center mb-4">
+        <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Our Demo Crawler</h1>
+        <p>
+            The user will have an option to submit the “Page Element” he wants to look for and the URL to scrape the data from.
+        </p>
+    </div>
+
+    <div class="form-label-group my-5">
+        <label for="inputEmail">Url To Scrape</label>
+        <input type="text" name="url" id="inputEmail" class="form-control" placeholder="URL" required
+               autofocus>
+
+    </div>
+
+    <div class="form-label-group my-5">
+        <textarea type="text" name="tags" placeholder="write elements to scrape here... new line for new element" class="w-100 form-control"></textarea>
+
+    </div>
+
+     <div class="form-label-group my-5">
+          <label for="inputEmail">Scan Interval</label>
+        <select>
+            <optgroup label="days">
+                <option>Every Day</option>
+                <option>Every 2 Day</option>
+                <option>Every 3 Day</option>
+            </optgroup>
+            <optgroup label="hours">
+                <option>Every Hour</option>
+                <option>Every 2 Hour</option>
+                <option>Every 3 Hour</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="checkbox my-5">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">SCRAPE</button>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2021</p>
+</form>
+
+{% endblock %}
+
+

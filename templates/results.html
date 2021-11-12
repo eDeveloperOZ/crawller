@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+<h1 class="h3 mb-3 font-weight-normal">{{name}}</h1>
+<h2>{{url}}</h2>
+
+<table style="background:black;color:white;border-radius:20px;">
+
+    {% for segment in results %}
+    <tr>
+      <td>{{segment.text}}</td>
+      <td></td>
+    </tr>
+  {% endfor %}
+
+
+</table>
+
+
+{% endblock %}
