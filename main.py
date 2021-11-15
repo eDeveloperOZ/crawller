@@ -42,13 +42,8 @@ def start_crawl():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    # for tag_selector in symbols.splitlines():
-    #     results[tag_selector] = []
-
     for tag_selector in symbols.splitlines():
         results[tag_selector] = extract_data(select_type, tag_selector, soup)[0]
-
-
 
     return render_template('results.html', name="crawling!!", url=url, results=results)
 
