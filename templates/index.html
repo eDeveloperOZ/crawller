@@ -1,10 +1,32 @@
 {% extends "layout.html" %}
 
-{% block styles%}
+{% block styles %}
+
+<style>
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+</style>
+
+{% endblock %}
+
+{% block body %}
 <form class="form-crawl" action="/start-crawl" method="post"
       style="border:10px solid black;padding:20px;">
     <div class="text-center mb-4">
-        <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <img class="mb-4" src="https://www.deansoffer.co.il/wp-content/themes/deans/img/logo.png" alt="" >
         <h1 class="h3 mb-3 font-weight-normal">Our Demo Crawler</h1>
         <p>
             The user will have an option to submit the “Page Element” he wants to look for and the URL to scrape the data from.
@@ -42,43 +64,21 @@
 <!--    what type of data to extract-->
         <label for="inputEmail">Type of data</label>
         <select name="dataType">
-                <option>Tags</option>
-                <option>CSS</option>
-                <option>xPath</option>
-                <option>Tag id</option>
+                <option value="Tags">Tags</option>
+                <option value="CSS">CSS</option>
+                <option value="xPath">xPath</option>
+                <option value="Tag id">Tag id</option>
         </select>
     </div>
 
     <div class="checkbox my-5">
         <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me"> send results to mail
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">SCRAPE</button>
     <p class="mt-5 mb-3 text-muted text-center">&copy; 2021</p>
 </form>
-{% endblock %}
-
-{% block body %}
-
-<style>
-.bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-</style>
-
 {% endblock %}
 
 

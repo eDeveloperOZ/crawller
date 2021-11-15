@@ -7,13 +7,18 @@
 <h2>{{url}}</h2>
 
 <table style="background:black;color:white;border-radius:20px;">
-
-    {% for segment in results %}
     <tr>
-      <td>{{segment.text}}</td>
-      <td>{{results}}</td>
+
+        {% for  selector in results %}
+            <h3>{{selector}}</h3>
+            <ol>
+
+            {% for item in results[selector] %}
+                <li>{{item.text}}</li>
+            {% endfor %}
+            </ol>
     </tr>
-  {% endfor %}
+    {% endfor %}
 
 
 </table>

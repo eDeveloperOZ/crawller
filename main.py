@@ -13,37 +13,44 @@ def hello_world():
 
 
 # perform extraction of the data by user choice of type
-def extractData(soup, r = ''):
+def extract_data(select_type, selector, soup):
     data = []
-    symbols = request.form['info']
-    dataType = request.form['dataType']
-    if(dataType == 'Tags'):
-        for dat in symbols.splitlines():
-            data.append(soup.find_all(dat))
-    elif(dataType == 'CSS'):
-        for dat in symbols.splitlines():
-            data.append(soup.select(dat))
-    elif(dataType=='xPath'):
-        dom = etree.HTML(r)
-        #print(dom.xpath(symbols))
-        for dat in symbols.splitlines():
-            print(dom.xpath(dat))
-            data.append(dom.xpath(dat).text)
-    elif(dataType=='Tag id'):
-        for dat in symbols.splitlines(): data.append(soup.find(id=dat))
+
+    if select_type == 'Tags':
+        data.append(soup.find_all(selector))
+
+    elif select_type == 'CSS':
+        data.append(soup.select(selector))
+
+    elif select_type == 'xPath':
+        tree = etree.HTML(str(soup))
+        element = tree.xpath(selector)
+        if len(element) > 0:
+            data.append(element)
+
+    elif select_type == 'Tag id':
+        data.append(soup.find(id=selector))
 
     return data
 
 @app.route("/start-crawl", methods=['POST'])
 def start_crawl():
-
+    results = {}
     url = request.form['url']
+    symbols = request.form['info']
+    select_type = request.form['dataType']
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    symbols = request.form['info']
-    resultsToSend = extractData(soup,response.content)
 
-    return render_template('results.html', name="crawling!!", url=url, results=resultsToSend)
+    # for tag_selector in symbols.splitlines():
+    #     results[tag_selector] = []
+
+    for tag_selector in symbols.splitlines():
+        results[tag_selector] = extract_data(select_type, tag_selector, soup)[0]
+
+
+
+    return render_template('results.html', name="crawling!!", url=url, results=results)
 
 if __name__ == '__main__':
     app.run(debug=True)
