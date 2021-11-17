@@ -1,15 +1,17 @@
 import os
+import sys
+
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request
 from lxml import etree
 
 app = Flask(__name__)
-
+serverId = 0
 @app.route("/")
 def hello_world():
     print(os.getcwd() + '\\templates\\index.html')
-    return render_template('index.html', name="dean soffer")
+    return render_template('index.html', serverId=serverPort)
 
 
 # perform extraction of the data by user choice of type
@@ -44,8 +46,11 @@ def start_crawl():
 
     for tag_selector in symbols.splitlines():
         results[tag_selector] = extract_data(select_type, tag_selector, soup)[0]
-
-    return render_template('results.html', name="crawling!!", url=url, results=results)
+    serverId =  args = sys.argv[1:]
+    return render_template('results.html', name="crawling!!", url=url, results=results, serverId=serverPort)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    args = sys.argv[1:]
+    serverPort = args[0]
+    print(serverPort)
+    app.run(debug=True, port=serverPort)

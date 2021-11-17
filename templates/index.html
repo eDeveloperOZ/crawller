@@ -24,10 +24,12 @@
 
 {% block body %}
 <form class="form-crawl" action="/start-crawl" method="post"
-      style="border:10px solid black;padding:20px;">
+      style="border:10px solid black;padding:20px;position: relative;">
     <div class="text-center mb-4">
-        <img class="mb-4" src="https://www.deansoffer.co.il/wp-content/themes/deans/img/logo.png" alt="" >
-        <h1 class="h3 mb-3 font-weight-normal">Our Demo Crawler</h1>
+        <img class="mb-4" src="https://i.ibb.co/0GLRRt7/logo.jpg" alt=""
+             style="position: absolute;bottom:0;right:0">
+        <h1 class="h3 mb-3 font-weight-normal">Our LoadBalanced Crawler</h1>
+        <h2>This app is running on server number: <u>{{serverId}}</u></h2>
         <p>
             The user will have an option to submit the “Page Element” he wants to look for and the URL to scrape the data from.
         </p>
