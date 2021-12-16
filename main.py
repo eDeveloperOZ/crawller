@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request
 from lxml import etree
+from urlextract import URLExtract
 
 app = Flask(__name__)
 
@@ -33,6 +34,23 @@ def extract_data(select_type, selector, soup):
 
     return data
 
+def extract_urls(domain_name, soup):
+    extractor = URLExtract()
+    data = []
+    #gets all lines thats cmtains the domain to look for
+    for link in str(soup).splitlines():
+        if domain_name in link:
+            #check if the origin url exsits in list ebfore appending any further links to avoid recursive infinite scraping
+            if extractor.find_urls(link)[0] == domain_name:
+                print("same name as origin url")
+            else:
+                data.append(extractor.find_urls(link))
+            # print('-------------------------')
+    #data holds a list off all links that require additional serach-work
+    #data is to be sent to mngr for further distribution of work load
+    for itm in data:
+        print(itm)
+
 @app.route("/start-crawl", methods=['POST'])
 def start_crawl():
     results = {}
@@ -41,6 +59,7 @@ def start_crawl():
     select_type = request.form['dataType']
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
+    extract_urls(url, soup)
 
     for tag_selector in symbols.splitlines():
         results[tag_selector] = extract_data(select_type, tag_selector, soup)[0]
